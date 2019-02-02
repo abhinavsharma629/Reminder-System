@@ -1,0 +1,78 @@
+  {% extends 'homebase.html' %}
+  {% load crispy_forms_tags %}
+  {% block head %}
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  {% endblock %}
+
+  {% block body %}
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#"><b>Tracker</b></a>
+      </div>
+      <ul class="nav navbar-nav">
+      
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><b>Notifications</b><span class="caret"></span></a>
+          <ul class="dropdown-menu" id="Notifications">
+              <div class="container">
+                  <u><h4><b>READ</b></h4></u>
+                {% if read|length == 0 %}
+                      <li><h5><b>No Notifications</b></h5></li>
+                {% else %}
+                {% for i,j in read.items %}
+                <ul>
+                    <li><b><p><a class="text-primary" href="http://127.0.0.1:8000/agency/information/{{j}}">{{i}}</a></p></b></li>
+                </ul>
+                {% endfor %}
+                {% endif %}
+                </div>
+                <div class="container">
+                  <u><h4><b>UNREAD</b></h4></u>
+                {% if unread|length == 0 %}
+                    <li><h5><b>ALL READ</b></h5></li>
+                {% else %}
+                {% for i,j in unread.items %}
+                <ul>
+                    <li><b><p><a class="text-primary" href="http://127.0.0.1:8000/agency/information/{{j}}">{{i}}</a></p></b></li>
+                </ul>
+                {% endfor %}
+                </div>
+                {% endif %}
+                <div class="container">
+                  <form method="POST" action="">
+                      {% csrf_token %}
+                    <button type="submit", class="btn btn-secondary"><b>Mark All As Read</b></button>
+                </form>
+                </div>
+            
+          </ul>
+        </li>
+        
+        <li><a class="navbar-brand" href="http://127.0.0.1:8000/agency/submit"><b>Create</b></a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a class="navbar-brand" href="#"></span><img src="/media/pictures/tlogo.jpg" height="50" width="50"></a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="row">
+    {%for i in details%}
+    <div class="column">
+    <div class="card col-sm-3" style="width:200px">
+      <img class="card-img-top"  src="{{i.image.url}}" style="height:200px;">
+      <div class="card-body">
+        <h4 class="card-title"><b>{{i}}</b></h4>
+        <div class="container">
+          <a href="{% url 'information' i.truck_number %}"><button type="button" class="btn btn-secondary" ><b>See info</b>
+          </button></a>
+        </div>
+      </div>    
+    </div>
+    </div>
+    {%endfor%}
+  </div>
+  {% endblock %}

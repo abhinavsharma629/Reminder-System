@@ -1,0 +1,125 @@
+{% extends 'countbase.html' %}
+{% block head %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script>
+            p {
+        text-align: center;
+        font-size: 60px;
+        margin-top: 0px;
+        }
+        </script>
+{% endblock %}
+{% block body %}
+    <!--This page extends the trucks.html page apart from this block which replaces the display of all the trucks and shows 
+    information of the truck that the user clicks on using id of the Truck table.-->
+    <center>
+        {% for specific_detail in specific_details %}
+        <div class='container col-sm-4'>
+            <img class="card-img-top"  src="{{specific_detail.image.url}}" alt="Card image" style="width:400px;" style="height:400px;">
+        </div>
+        <br>
+        <div class="Container col-sm-5">
+            <ul class='list-group'>
+                <li class='list-group-item'><h4><b>Registration number</b> - {{specific_detail.truck_number}}</h4></li>
+                <li class='list-group-item'><h4><b>Insurance number</b> - {{specific_detail.insurance_number}}</h4></li>
+                <li class='list-group-item'><h4><b>Insurance Expiry</b> - {{specific_detail.insurance_expiry}}</h4>
+                    <div class="container">
+                            <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="main">
+                            <div class="content">
+                            <div class="text">
+                            </div> <!-- /.Text Div -->
+                            <div class="counter">
+                            <h3><b>Time Remaining Before Expirey:</b></h3>
+                            <div id="countdown">
+                              
+                            </div><!-- /#Countdown Div -->
+                            </div> <!-- /.Counter Div -->
+                            </div> <!-- /.Content Div -->
+                            </div> <!-- /#Main Div -->
+                            </div> <!-- /.Columns Div -->
+                            </div> <!-- /.Row Div -->
+                            </div> <!-- /.Container Div --></li>
+                <li class='list-group-item'><h4><b>Fitness Certificate ID</b> - {{specific_detail.fitness_certificate_id}}</h4></li>
+                <li class='list-group-item'><h4><b>Fitness Certificate Expiry</b> - {{specific_detail.fitness_certificate_expiry}}</h4>
+                    <div class="container">
+                            <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="main">
+                            <div class="content">
+                            <div class="text">
+                            </div> <!-- /.Text Div -->
+                            <div class="counter">
+                            <h3><b>Time Remaining Before Expirey:</b></h3>
+                            <div id="countdown1">
+                              
+                            </div><!-- /#Countdown Div -->
+                            </div> <!-- /.Counter Div -->
+                            </div> <!-- /.Content Div -->
+                            </div> <!-- /#Main Div -->
+                            </div> <!-- /.Columns Div -->
+                            </div> <!-- /.Row Div -->
+                            </div> <!-- /.Container Div --></li>
+            </ul>
+            <br><br>
+            <a href="http://127.0.0.1:8000/agency/"><button type="button" class="btn btn-secondary" >Back</button></a>
+        </div>
+                {% endfor %}
+            <script>
+                var target_date = new Date("{{string}}").getTime();
+                var target_date1 = new Date("{{nextstring}}").getTime();
+                
+                var days, hours, minutes, seconds;
+                var countdown = document.getElementById('countdown');
+                var countdown1 = document.getElementById('countdown1');
+    
+                setInterval(function () {
+    
+        // find the amount of "seconds" between now and target
+                 var current_date = new Date().getTime();
+                
+                //Insurance
+                var seconds_left = (target_date - current_date) / 1000;
+                days = parseInt(seconds_left / 86400);
+                seconds_left = seconds_left % 86400;
+                hours = parseInt(seconds_left / 3600);
+                seconds_left = seconds_left % 3600;        
+                minutes = parseInt(seconds_left / 60);
+                seconds = parseInt(seconds_left % 60);
+
+
+                //Fitness Certificate
+                var seconds_left1 = (target_date1 - current_date) / 1000;
+                days1 = parseInt(seconds_left1 / 86400);
+                seconds_left1 = seconds_left1 % 86400;
+                hours1 = parseInt(seconds_left1 / 3600);
+                seconds_left1 = seconds_left1 % 3600;
+                minutes1 = parseInt(seconds_left1 / 60);
+                seconds1 = parseInt(seconds_left1 % 60);
+
+                if(days<0)
+                {
+                    countdown.innerHTML ="Insurance Expired"
+                }
+                else
+                {
+        // format countdown string + set tag value
+                countdown.innerHTML = '<span class="days">' + days +  ' <b>Days</b></span> <span class="hours">' + hours + ' <b>Hours</b></span> <span class="minutes">'
+                + minutes + ' <b>Minutes</b></span> <span class="seconds">' + seconds + ' <b>Seconds</b></span>';  
+                }
+
+                if(days1<0)
+                {
+                    countdown1.innerHTML ='<h4><b>Fitness Certificate Expired</b><h4>';
+                }
+                else
+                {
+        // format countdown string + set tag value
+                countdown1.innerHTML = '<span class="days">' + days +  ' <b>Days</b></span> <span class="hours">' + hours + ' <b>Hours</b></span> <span class="minutes">'
+                + minutes + ' <b>Minutes</b></span> <span class="seconds">' + seconds + ' <b>Seconds</b></span>';  
+                }
+
+            }, 1000);
+            </script>
+{% endblock %}

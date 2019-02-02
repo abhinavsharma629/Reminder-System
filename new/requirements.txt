@@ -1,0 +1,12 @@
+amqp==2.4.0
+autopep8==1.4.3
+billiard==3.5.0.5
+celery==4.2.1
+Django==2.1.5
+django-celery-results==1.0.4
+django-crispy-forms==1.7.2
+kombu==4.2.2.post1
+Pillow==5.4.1
+pycodestyle==2.4.0
+pytz==2018.9
+vine==1.2.0
